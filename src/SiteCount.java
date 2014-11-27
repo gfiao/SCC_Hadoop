@@ -68,7 +68,7 @@ public class SiteCount {
 		
 		FileInputFormat.setInputPaths(conf2, new Path(args[1]+"-tmp"));
 		conf2.setInputFormatClass(
-				org.apache.hadoop.mapreduce.lib.input.FileInputFormat.class);
+				org.apache.hadoop.mapreduce.lib.input.TextInputFormat.class);
 
 		conf2.setMapperClass(SiteCountMap2.class);
 		conf2.setCombinerClass(SiteCountReduce2.class);
@@ -77,7 +77,7 @@ public class SiteCount {
 		FileOutputFormat.setOutputPath(conf2, new Path(args[1]));
 		conf2.setOutputFormatClass(TextOutputFormat.class);
 		conf2.setOutputKeyClass(Text.class);
-		conf2.setOutputValueClass(IntWritable.class);
+		conf2.setOutputValueClass(Text.class);
 
 		conf2.waitForCompletion(true); // submit and wait
 	}

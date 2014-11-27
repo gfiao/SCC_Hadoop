@@ -9,11 +9,19 @@ public class SiteCountReduce2 extends
 
 	public void reduce(Text key, Iterable<Text> values, Context cont)
 			throws IOException, InterruptedException {
-		String sum = key+"\n";
+		String sum = key.toString()+"\n";
+		
+//		System.out.println("*********************** KEY -> " + key.toString());
+		
 		for (Text val : values) {
+//			System.out.println("------------------------ VAL -> " + val.toString());
+			
 			sum += "	"+val.toString()+"\n";
 		}
 		result.set(sum);
-		cont.write(key, result);
+		
+//		System.out.println("++++++++++++++++++++++\n" + sum + "\n++++++++++++++++++++++++++++");
+		
+		cont.write(result, new Text());
 	}
 }
