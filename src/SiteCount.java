@@ -8,6 +8,7 @@
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IOUtils;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
@@ -17,9 +18,27 @@ import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 
 import edu.cmu.lemurproject.WarcFileInputFormat;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 public class SiteCount {
 
+
+    public static String patterns;
+
+
 	public static void main(String[] args) throws Exception {
+
+        java.nio.file.Path path = Paths.get("patterns");
+        try {
+            patterns = new String(Files.readAllBytes( path ));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 		//*******************MAP-REDUCE 1**************************
 
