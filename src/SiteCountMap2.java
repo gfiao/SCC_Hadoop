@@ -1,33 +1,28 @@
 import java.io.IOException;
-import java.net.URL;
 
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-import edu.cmu.lemurproject.WarcRecord;
-import edu.cmu.lemurproject.WritableWarcRecord;
-
 public class SiteCountMap2 extends
-		Mapper<LongWritable, WritableWarcRecord, Text, IntWritable> {
+		Mapper<Text, IntWritable, Text, Text> {
 	private final static IntWritable one = new IntWritable(1);
 	private Text word = new Text();
+	
 
-//	protected void setup(Context cont) {
-//		System.err.println(">>>Processing>>> "
-//				+ ((FileSplit) cont.getInputSplit()).getPath().toString());
-//
-//	}
-
-	public void map(LongWritable key, WritableWarcRecord value, Context cont)
+	public void map(LongWritable key, Text wordsite, IntWritable count, Context cont)
 			throws IOException, InterruptedException {
-		WarcRecord val = value.getRecord();
-
-		String url = val.getHeaderMetadataItem("WARC-Target-URI");
+		
+		String[] contents = wordsite.toString().split("---");
+		String temp_word = contents[0];
+		String url = contents[1];
+		
+		
+		
 		try {
-			word.set(new URL(url).getHost());
-			cont.write(word, one);
+			word.set(temp_word);
+			cont.write(word, new Text(url));
 		} catch (Exception e) {
 		}
 	}

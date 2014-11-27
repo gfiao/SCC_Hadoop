@@ -4,14 +4,14 @@ import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapreduce.Reducer;
 
 public class SiteCountReduce2 extends
-	Reducer<Text, IntWritable, Text, IntWritable> {
-	private IntWritable result = new IntWritable();
+	Reducer<Text, Text, Text, Text> {
+	private Text result = new Text();
 
-	public void reduce(Text key, Iterable<IntWritable> values, Context cont)
+	public void reduce(Text key, Iterable<Text> values, Context cont)
 			throws IOException, InterruptedException {
-		int sum = 0;
-		for (IntWritable val : values) {
-			sum += val.get();
+		String sum = key+"\n";
+		for (Text val : values) {
+			sum += "	"+val.toString()+"\n";
 		}
 		result.set(sum);
 		cont.write(key, result);

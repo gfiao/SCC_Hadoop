@@ -25,28 +25,26 @@ public class SiteCountMap1 extends
 		WarcRecord val = value.getRecord();
 
 		String url = val.getHeaderMetadataItem("WARC-Target-URI");
-		// if (url != null) {
 
 		String contents = val.getContentUTF8();
-		StringTokenizer tokenizer = new StringTokenizer(contents);
+		StringTokenizer tokenizer = new StringTokenizer(contents,
+				SiteCount.patterns);
 		String w;
 		try {
 			while (tokenizer.hasMoreTokens()) {
-				w = url.concat("---");
-				w = w.concat(tokenizer.nextToken());
-				// word.set(tokenizer.nextToken());
-				word.set(w);
-				cont.write(word, one);
+				String curr_token = tokenizer.nextToken();
+
+				// ignora palavras com menos de 3 letras
+				if (curr_token.length() > 2) {
+					w = curr_token.toLowerCase().concat("---").concat(url);
+//					w = w.concat();
+
+					word.set(w);
+					cont.write(word, one);
+				}
 			}
 		} catch (Exception e) {
 			System.out.println("****************************Deu merda :(");
 		}
-		// }
-
-		// try {
-		// word.set(new URL(url).getHost());
-		// cont.write(word, one);
-		// } catch (Exception e) {
-		// }
 	}
 }
