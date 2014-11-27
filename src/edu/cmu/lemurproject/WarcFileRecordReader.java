@@ -32,13 +32,17 @@
  * @author mhoy@cs.cmu.edu (Mark J. Hoy)
  */
 
-package warc_mapreduce;
+package edu.cmu.lemurproject;
 
 import java.io.DataInputStream;
 import java.io.IOException;
-import org.apache.commons.logging.*;
+import java.net.URI;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FSDataInputStream;
+import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.compress.CompressionCodec;

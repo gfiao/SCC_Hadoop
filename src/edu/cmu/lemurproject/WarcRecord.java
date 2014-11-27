@@ -43,8 +43,7 @@ Lemur License Agreement
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
-package warc_mapreduce;
+package edu.cmu.lemurproject;
 
 import java.io.DataInput;
 import java.io.DataInputStream;

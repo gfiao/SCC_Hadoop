@@ -1,4 +1,4 @@
- /**
+/**
  * An extension of the Writable object for Hadoop for a Warc Record
  * 
  * (C) 2009 - Carnegie Mellon University
@@ -32,9 +32,9 @@
  * @author mhoy@cs.cmu.edu (Mark J. Hoy)
  */
 
-package warc_mapreduce;
+package edu.cmu.lemurproject;
 
-
+import edu.cmu.lemurproject.WarcRecord;
 import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;

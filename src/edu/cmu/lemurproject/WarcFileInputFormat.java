@@ -32,7 +32,7 @@
  * @author mhoy@cs.cmu.edu (Mark J. Hoy)
  */
 
-package warc_mapreduce;
+package edu.cmu.lemurproject;
 
 import java.io.IOException;
 
