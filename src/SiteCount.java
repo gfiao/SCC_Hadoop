@@ -22,55 +22,19 @@ import java.net.URL;
 
 public class SiteCount {
 
-	public static class MyMap extends
-	Mapper<LongWritable, WritableWarcRecord, Text, IntWritable> {
-		private final static IntWritable one = new IntWritable(1);
-		private Text word = new Text();
-
-		protected void setup(Context cont) {
-			System.err.println(">>>Processing>>> "
-					+ ((FileSplit) cont.getInputSplit()).getPath().toString());
-
-		}
-
-		public void map(LongWritable key, WritableWarcRecord value, Context cont)
-				throws IOException, InterruptedException {
-			WarcRecord val = value.getRecord();
-
-			String url = val.getHeaderMetadataItem("WARC-Target-URI");
-			try {
-				word.set(new URL(url).getHost());
-				cont.write(word, one);
-			} catch (Exception e) {
-			}
-		}
-	}
-
-	public static class MyReduce extends
-	Reducer<Text, IntWritable, Text, IntWritable> {
-		private IntWritable result = new IntWritable();
-
-		public void reduce(Text key, Iterable<IntWritable> values, Context cont)
-				throws IOException, InterruptedException {
-			int sum = 0;
-			for (IntWritable val : values) {
-				sum += val.get();
-			}
-			result.set(sum);
-			cont.write(key, result);
-		}
-	}
-
 	public static void main(String[] args) throws Exception {
+
+		//*******************MAP-REDUCE 1**************************
+
 		Job conf = Job.getInstance(new Configuration(), "sitecount");
 		conf.setJarByClass(SiteCount.class);
 
 		conf.setOutputKeyClass(Text.class);
 		conf.setOutputValueClass(IntWritable.class);
 
-		conf.setMapperClass(MyMap.class);
-		conf.setCombinerClass(MyReduce.class);
-		conf.setReducerClass(MyReduce.class);
+		conf.setMapperClass(SiteCountMap1.class);
+		conf.setCombinerClass(SiteCountReduce1.class);
+		conf.setReducerClass(SiteCountReduce1.class);
 
 		conf.setInputFormatClass(WarcFileInputFormat.class);
 		conf.setOutputFormatClass(TextOutputFormat.class);
@@ -79,5 +43,11 @@ public class SiteCount {
 		FileOutputFormat.setOutputPath(conf, new Path(args[1]));
 
 		conf.waitForCompletion(true); // submit and wait
+
+
+		//*******************MAP-REDUCE 2**************************
+
+		//TODO
+
 	}
 }
