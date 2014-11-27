@@ -1,3 +1,13 @@
+import java.io.IOException;
+import java.net.URL;
+
+import org.apache.hadoop.io.*;
+import org.apache.hadoop.mapred.FileSplit;
+import org.apache.hadoop.mapreduce.Mapper;
+
+import edu.cmu.lemurproject.WarcRecord;
+import edu.cmu.lemurproject.WritableWarcRecord;
+
 public class SiteCountMap1 extends
 	Mapper<LongWritable, WritableWarcRecord, Text, IntWritable> {
 	private final static IntWritable one = new IntWritable(1);

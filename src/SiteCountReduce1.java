@@ -1,3 +1,8 @@
+import java.io.IOException;
+
+import org.apache.hadoop.io.*;
+import org.apache.hadoop.mapreduce.Reducer;
+
 public class SiteCountReduce1 extends
 	Reducer<Text, IntWritable, Text, IntWritable> {
 	private IntWritable result = new IntWritable();
