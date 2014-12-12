@@ -4,7 +4,7 @@ import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapreduce.Reducer;
 
 public class SiteCountReduce1 extends
-	Reducer<Text, IntWritable, Text, IntWritable> {
+		Reducer<Text, IntWritable, Text, IntWritable> {
 	private IntWritable result = new IntWritable();
 
 	public void reduce(Text key, Iterable<IntWritable> values, Context cont)

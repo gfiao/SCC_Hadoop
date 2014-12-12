@@ -14,12 +14,6 @@ public class SiteCountMap1 extends
 	private final static IntWritable one = new IntWritable(1);
 	private Text word = new Text();
 
-	// protected void setup(Context cont) {
-	// System.err.println(">>>Processing>>> "
-	// + ((FileSplit) cont.getInputSplit()).getPath().toString());
-	//
-	// }
-
 	public void map(LongWritable key, WritableWarcRecord value, Context cont)
 			throws IOException, InterruptedException {
 		WarcRecord val = value.getRecord();
@@ -37,14 +31,13 @@ public class SiteCountMap1 extends
 				// ignora palavras com menos de 3 letras
 				if (curr_token.length() > 2) {
 					w = curr_token.toLowerCase().concat("---").concat(url);
-//					w = w.concat();
 
 					word.set(w);
 					cont.write(word, one);
 				}
 			}
 		} catch (Exception e) {
-			System.out.println("****************************Deu merda :(");
+			e.printStackTrace();
 		}
 	}
 }
