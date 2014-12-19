@@ -6,10 +6,6 @@
  *  based on public WordCount examples
  */
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
@@ -26,13 +22,6 @@ public class SiteCount {
 	public static String patterns;
 
 	public static void main(String[] args) throws Exception {
-
-		java.nio.file.Path path = Paths.get("patterns");
-		try {
-			patterns = new String(Files.readAllBytes(path));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 
 		// *******************MAP-REDUCE 1**************************
 

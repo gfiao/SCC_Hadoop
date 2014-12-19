@@ -21,8 +21,7 @@ public class SiteCountMap1 extends
 		String url = val.getHeaderMetadataItem("WARC-Target-URI");
 
 		String contents = val.getContentUTF8();
-		StringTokenizer tokenizer = new StringTokenizer(contents,
-				SiteCount.patterns);
+		StringTokenizer tokenizer = new StringTokenizer(contents);
 		String w;
 		try {
 			while (tokenizer.hasMoreTokens()) {
